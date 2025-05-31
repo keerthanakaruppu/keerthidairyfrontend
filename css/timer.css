@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+html{
+  font-size: 12px;
+}
+body{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  /* background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('../images/img.jpg'); */
+  background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('https://t3.ftcdn.net/jpg/01/88/60/60/360_F_188606037_TmePLAgAO5zNpf4HMojSzXqfHkI1Ivtb.jpg');
+  background-repeat: no-repeat;
+  color:#fff;
+  background-size: cover;
+  background-position: center;
+}
+.back-link{
+  color:#fff;
+  text-decoration: none;
+  font-size: 25px;
+  position: absolute;
+  top:10px;
+  left: 10px;
+}
+.counter{
+  display: flex;
+  border: 1px solid rgba(255,255,255,0.5);
+  padding: 10px;
+}
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container>h2{
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 15px  0px;
+}
+.name-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container>p{
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+.black-heart{
+color:black;
+font-size: 1.5rem;
+}
+.counter .box{
+  width: 80px;
+  height: 70px;
+  text-align: center;
+  margin-right: 10px;
+  position: relative;
+}
+
+.counter .box::after{
+  content: ":";
+  height: 70px;
+  width: 10px;
+  position: absolute;
+  top:0;
+  right: 0;
+  font-size: 2.5rem;
+}
+.counter .box:last-of-type::after{
+  display: none;
+}
+
+.counter .box h2{
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.form{
+  margin-top: 20px;
+}
+.form input[type="text"]{
+  width: 230px;
+  padding: 10px;
+  outline: none;
+  border: 1px solid rgba(255,255,255,0.5);
+  background-color: transparent;
+  border-radius: 5px;
+  color:white;
+}
+.form input[type="text"]::placeholder{
+  color:rgba(255,255,255,0.7);
+}
+.form button{
+  width: 120px;
+  padding: 10px;
+  border: none;
+  border-radius: 30px;
+  margin-left: 10px;
+  background-color: cornflowerblue;
+  color:white;
+}
+@media (min-width:400px) {
+  html{
+    font-size:16px ;
+  }
+  
+  .counter .box{
+    width: 90px;
+    height: 90px;
+  }
+  .form input[type="text"]{
+    width: 300px;
+  }
+}
+
+@media (min-width:576px) {
+  html{
+    font-size:18px ;
+  }
+  .counter .box{
+    width: 100px;
+    height: 100px;
+  }
+  .form input[type="text"]{
+    width: 300px;
+  }
+}
+
+@media (min-width:768px) {
+  html{
+    font-size:20px ;
+  }
+  .counter .box{
+    width: 110px;
+    height: 110px;
+  }
+  .form input[type="text"]{
+    width: 340px;
+  }
+}
