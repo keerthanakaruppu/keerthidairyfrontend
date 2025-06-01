@@ -73,6 +73,14 @@ async function loadImages() {
         </div>
       `;
       container.appendChild(div);
+
+      container.addEventListener("click", (e) => {
+        if (e.target.classList.contains("delete-icon")) {
+          const key = e.target.getAttribute("data-key");
+          const public_id = e.target.getAttribute("data-public-id");
+          deleteImage(key, public_id);
+        }
+      });
     });
   } catch (err) {
     loader.style.display = "none";
@@ -83,14 +91,6 @@ async function loadImages() {
 loadImages();
 
 // Delete image handler
-container.addEventListener("click", (e) => {
-  if (e.target.classList.contains("delete-icon")) {
-    const key = e.target.getAttribute("data-key");
-    const public_id = e.target.getAttribute("data-public-id");
-    deleteImage(key, public_id);
-  }
-});
-
 async function deleteImage(key, public_id) {
   if (!confirm("Are you sure you want to delete this image?")) return;
   try {
