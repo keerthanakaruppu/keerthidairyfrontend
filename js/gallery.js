@@ -43,17 +43,14 @@ uploadBtn.onclick = async () => {
 
 // Load and display images
 async function loadImages() {
-    // const res = await fetch(`${API_URL}/images`);
-    // const images = await res.json();
-
+    try {
     const container = document.getElementById("mainbox");
     const loader = document.getElementById("loader");
     
     // Show loader and clear content
     loader.style.display = "block";
     container.innerHTML = "";
-
-    try {
+   
       const res = await fetch(`${API_URL}/images`);
       const images = await res.json();
   
