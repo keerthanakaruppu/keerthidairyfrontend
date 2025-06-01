@@ -1,11 +1,13 @@
 const API_URL = "https://keerthidairybackend.onrender.com";
 
+
 // DOM Elements
 const uploadBtn = document.getElementById("uploadBtn");
 const fileInput = document.getElementById("fileInput");
 const modal = document.getElementById("uploadModal");
 const openBtn = document.getElementById("uploadImageButton");
 const closeBtn = document.querySelector(".close-btn");
+
 
 // Modal open/close logic
 openBtn.onclick = () => (modal.style.display = "block");
@@ -20,19 +22,15 @@ uploadBtn.onclick = async () => {
 
   const formData = new FormData();
   formData.append("image", file);
-
   try {
     const res = await fetch(`${API_URL}/upload`, {
       method: "POST",
       body: formData,
     });
-
     const data = await res.json();
-
     if (!res.ok) {
       throw new Error(data.error || "Upload failed");
     }
-
     alert("Uploaded!");
     modal.style.display = "none";
     fileInput.value = "";
@@ -44,21 +42,21 @@ uploadBtn.onclick = async () => {
 };
 
 
+
 // Load and display images
 async function loadImages() {
   const container = document.getElementById("mainbox");
   const loader = document.getElementById("loader");
-
-  loader.style.display = "block";      // Show loader
-  container.innerHTML = "";            // Clear any old content
-
+  loader.style.display = "block";      // Show the loader
+  container.innerHTML = "";            // Clear previous images
   try {
     const res = await fetch(`${API_URL}/images`);
     const images = await res.json();
-
-    loader.style.display = "none";     // Hide loader after images load
-    container.innerHTML = "";
-
+    loader.style.display = "none";     // Hide loader after fetch
+    if (!images.length) {
+      container.innerHTML = "<p>No images found.</p>";
+      return;
+    }
     images.forEach((img) => {
       const div = document.createElement("div");
       div.classList.add("card");
@@ -76,15 +74,18 @@ async function loadImages() {
       container.appendChild(div);
     });
   } catch (err) {
+    console.error("Image load error:", err);
     loader.style.display = "none";
     container.innerHTML = "<p>Error loading images.</p>";
-    console.error("Image load error:", err);
   }
 }
 
+window.addEventListener("DOMContentLoaded", () => {
+  loadImages();
+});
+
 
 // Delete image handler
-
 async function deleteImage(key, public_id) {
   if (!confirm("Are you sure you want to delete this image?")) return;
 
