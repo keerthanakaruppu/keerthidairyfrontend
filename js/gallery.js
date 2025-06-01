@@ -6,6 +6,9 @@ const fileInput = document.getElementById("fileInput");
 const modal = document.getElementById("uploadModal");
 const openBtn = document.getElementById("uploadImageButton");
 const closeBtn = document.querySelector(".close-btn");
+const container = document.getElementById("mainbox");
+const loader = document.getElementById("loader");
+
 
 // Modal open/close logic
 openBtn.onclick = () => (modal.style.display = "block");
@@ -43,9 +46,6 @@ uploadBtn.onclick = async () => {
 
 // Load and display images
 async function loadImages() {
-  const container = document.getElementById("mainbox");
-  const loader = document.getElementById("loader");
-
   // Show loader and clear content
   loader.style.display = "block";
   container.innerHTML = "";
