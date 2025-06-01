@@ -17,21 +17,27 @@ window.onclick = (e) => {
   if (e.target === modal) modal.style.display = "none";
 };
 
+//upload image
 uploadBtn.onclick = async () => {
-  const file = fileInput.files[0];
-  if (!file) return alert("Select an image!");
+  const files = fileInput.files;
+  if (!files.length) return alert("Select at least one image!");
 
   const formData = new FormData();
-  formData.append("image", file);
+  for (const file of files) {
+    formData.append("images", file); // Use "images" to match backend field name
+  }
+
   try {
     const res = await fetch(`${API_URL}/upload`, {
       method: "POST",
       body: formData,
     });
+
     const data = await res.json();
     if (!res.ok) {
       throw new Error(data.error || "Upload failed");
     }
+
     alert("Uploaded!");
     modal.style.display = "none";
     fileInput.value = "";
@@ -41,6 +47,7 @@ uploadBtn.onclick = async () => {
     alert("Upload failed: " + err.message);
   }
 };
+
 
 
 
