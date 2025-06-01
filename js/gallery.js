@@ -43,43 +43,34 @@ uploadBtn.onclick = async () => {
 
 // Load and display images
 async function loadImages() {
-    try {
+  try {
+    const res = await fetch(`${API_URL}/images`);
+    const images = await res.json();
+
     const container = document.getElementById("mainbox");
-    const loader = document.getElementById("loader");
-    
-    // Show loader and clear content
-    loader.style.display = "block";
     container.innerHTML = "";
-   
-      const res = await fetch(`${API_URL}/images`);
-      const images = await res.json();
-  
-      // Hide loader
-      loader.style.display = "none";
-  
-      // Populate images
-      images.forEach((img) => {
-        const div = document.createElement("div");
-        div.classList.add("card");
-        div.innerHTML = `
-          <div class="tools">
-            <div class="circle"><span class="red box"></span></div>
-            <div class="circle"><span class="yellow box"></span></div>
-            <div class="circle"><span class="green box"></span></div>
-            <span class="delete-icon" onclick="deleteImage('${img.key}', '${img.public_id}')">&times;</span>
-          </div>
-          <div class="card__content">
-            <img src="${img.url}" class="img img-responsive">
-          </div>
-        `;
-        container.appendChild(div);
-      });
-    } catch (err) {
-      loader.style.display = "none";
-      console.error("Error loading images:", err);
-      container.innerHTML = "<p>Failed to load images.</p>";
-    }
+
+    images.forEach((img) => {
+      const div = document.createElement("div");
+      div.classList.add("card");
+      div.innerHTML =`
+    <div class="tools">
+      <div class="circle"><span class="red box"></span></div>
+      <div class="circle"><span class="yellow box"></span></div>
+      <div class="circle"><span class="green box"></span></div>
+      <span class="delete-icon" onclick="deleteImage('${img.key}', '${img.public_id}')">&times;</span>
+    </div>
+    <div class="card__content">
+      <img src="${img.url}" class="img img-responsive">
+    </div>
+  `;
+      container.appendChild(div);
+    });
+  } catch (err) {
+    console.error("Error loading images:", err);
   }
+}
+loadImages();
 
 
 
