@@ -43,43 +43,31 @@ uploadBtn.onclick = async () => {
 
 // Load and display images
 async function loadImages() {
-  const container = document.getElementById("mainbox");
-  const loader = document.getElementById("loader");
-
-  loader.style.display = "block";      // Show the loader
-  container.innerHTML = "";            // Clear previous images
-
   try {
     const res = await fetch(`${API_URL}/images`);
     const images = await res.json();
 
-    loader.style.display = "none";     // Hide loader after fetch
-
-    if (!images.length) {
-      container.innerHTML = "<p>No images found.</p>";
-      return;
-    }
+    const container = document.getElementById("mainbox");
+    container.innerHTML = "";
 
     images.forEach((img) => {
       const div = document.createElement("div");
       div.classList.add("card");
-      div.innerHTML = `
-        <div class="tools">
-          <div class="circle"><span class="red box"></span></div>
-          <div class="circle"><span class="yellow box"></span></div>
-          <div class="circle"><span class="green box"></span></div>
-          <span class="delete-icon" onclick="deleteImage('${img.key}', '${img.public_id}')">&times;</span>
-        </div>
-        <div class="card__content">
-          <img src="${img.url}" class="img img-responsive">
-        </div>
-      `;
+      div.innerHTML =`
+    <div class="tools">
+      <div class="circle"><span class="red box"></span></div>
+      <div class="circle"><span class="yellow box"></span></div>
+      <div class="circle"><span class="green box"></span></div>
+      <span class="delete-icon" onclick="deleteImage('${img.key}', '${img.public_id}')">&times;</span>
+    </div>
+    <div class="card__content">
+      <img src="${img.url}" class="img img-responsive">
+    </div>
+  `;
       container.appendChild(div);
     });
   } catch (err) {
-    console.error("Image load error:", err);
-    loader.style.display = "none";
-    container.innerHTML = "<p>Error loading images.</p>";
+    console.error("Error loading images:", err);
   }
 }
 loadImages();
@@ -89,7 +77,6 @@ loadImages();
 // Delete image handler
 async function deleteImage(key, public_id) {
   if (!confirm("Are you sure you want to delete this image?")) return;
-
   try {
     const res = await fetch(`${API_URL}/delete`, {
       method: "POST",
