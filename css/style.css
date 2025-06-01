@@ -176,10 +176,13 @@
 
 /* Uiverse.io loader by david-mohseni */
 .loader {
-  position: relative;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 54px;
   height: 54px;
-  margin: 40px auto; /* Center it */
+  z-index: 9999;
   display: none;
 }
 

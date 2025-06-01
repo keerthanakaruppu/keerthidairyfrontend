@@ -1,13 +1,11 @@
 const API_URL = "https://keerthidairybackend.onrender.com";
 
-
 // DOM Elements
 const uploadBtn = document.getElementById("uploadBtn");
 const fileInput = document.getElementById("fileInput");
 const modal = document.getElementById("uploadModal");
 const openBtn = document.getElementById("uploadImageButton");
 const closeBtn = document.querySelector(".close-btn");
-
 
 // Modal open/close logic
 openBtn.onclick = () => (modal.style.display = "block");
@@ -47,16 +45,21 @@ uploadBtn.onclick = async () => {
 async function loadImages() {
   const container = document.getElementById("mainbox");
   const loader = document.getElementById("loader");
+
   loader.style.display = "block";      // Show the loader
   container.innerHTML = "";            // Clear previous images
+
   try {
     const res = await fetch(`${API_URL}/images`);
     const images = await res.json();
+
     loader.style.display = "none";     // Hide loader after fetch
+
     if (!images.length) {
       container.innerHTML = "<p>No images found.</p>";
       return;
     }
+
     images.forEach((img) => {
       const div = document.createElement("div");
       div.classList.add("card");
@@ -80,9 +83,6 @@ async function loadImages() {
   }
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  loadImages();
-});
 
 
 // Delete image handler
