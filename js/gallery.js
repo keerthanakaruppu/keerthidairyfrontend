@@ -82,6 +82,7 @@ async function loadImages() {
     container.innerHTML = "<p>Error loading images.</p>";
   }
 }
+loadImages();
 
 
 
