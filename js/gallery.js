@@ -46,38 +46,48 @@ uploadBtn.onclick = async () => {
 
 // Load and display images
 async function loadImages() {
+  const container = document.getElementById("mainbox");
+  const loader = document.getElementById("loader");
+
+  loader.style.display = "block";      // Show loader
+  container.innerHTML = "";            // Clear any old content
+
   try {
     const res = await fetch(`${API_URL}/images`);
     const images = await res.json();
 
-    const container = document.getElementById("mainbox");
+    loader.style.display = "none";     // Hide loader after images load
     container.innerHTML = "";
 
     images.forEach((img) => {
       const div = document.createElement("div");
       div.classList.add("card");
-      div.innerHTML =`
-    <div class="tools">
-      <div class="circle"><span class="red box"></span></div>
-      <div class="circle"><span class="yellow box"></span></div>
-      <div class="circle"><span class="green box"></span></div>
-      <span class="delete-icon" onclick="deleteImage('${img.key}', '${img.public_id}')">&times;</span>
-    </div>
-    <div class="card__content">
-      <img src="${img.url}" class="img img-responsive">
-    </div>
-  `;
+      div.innerHTML = `
+        <div class="tools">
+          <div class="circle"><span class="red box"></span></div>
+          <div class="circle"><span class="yellow box"></span></div>
+          <div class="circle"><span class="green box"></span></div>
+          <span class="delete-icon" onclick="deleteImage('${img.key}', '${img.public_id}')">&times;</span>
+        </div>
+        <div class="card__content">
+          <img src="${img.url}" class="img img-responsive">
+        </div>
+      `;
       container.appendChild(div);
     });
   } catch (err) {
-    console.error("Error loading images:", err);
+    loader.style.display = "none";
+    container.innerHTML = "<p>Error loading images.</p>";
+    console.error("Image load error:", err);
   }
 }
-loadImages();
+
 
 // Delete image handler
 
-window.deleteImage = async (key, public_id) => {
+async function deleteImage(key, public_id) {
+  if (!confirm("Are you sure you want to delete this image?")) return;
+
   try {
     const res = await fetch(`${API_URL}/delete`, {
       method: "POST",
@@ -85,15 +95,16 @@ window.deleteImage = async (key, public_id) => {
       body: JSON.stringify({ key, public_id }),
     });
 
-    const result = await res.json();
-
-    if (result.success) {
+    const data = await res.json();
+    if (data.success) {
+      alert("Image deleted!");
       loadImages();
     } else {
-      alert("Failed to delete image");
-      console.error(result.error);
+      alert("Failed to delete image: " + data.error);
     }
   } catch (err) {
-    console.error("Delete error:", err);
+    console.error("Error deleting image:", err);
+    alert("Something went wrong.");
   }
-};
+}
+
