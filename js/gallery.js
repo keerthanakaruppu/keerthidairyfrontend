@@ -66,7 +66,7 @@ async function loadImages() {
           <div class="circle"><span class="red box"></span></div>
           <div class="circle"><span class="yellow box"></span></div>
           <div class="circle"><span class="green box"></span></div>
-          <span class="delete-icon" onclick="deleteImage('${img.key}', '${img.public_id}')">&times;</span>
+          <span class="delete-icon" data-key="${img.key}" data-public-id="${img.public_id}">&times;</span>
         </div>
         <div class="card__content">
           <img src="${img.url}" class="img img-responsive">
@@ -83,6 +83,14 @@ async function loadImages() {
 loadImages();
 
 // Delete image handler
+container.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-icon")) {
+    const key = e.target.getAttribute("data-key");
+    const public_id = e.target.getAttribute("data-public-id");
+    deleteImage(key, public_id);
+  }
+});
+
 async function deleteImage(key, public_id) {
   if (!confirm("Are you sure you want to delete this image?")) return;
   try {
