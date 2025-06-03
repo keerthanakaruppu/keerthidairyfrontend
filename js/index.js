@@ -15,7 +15,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
 
     const data = await res.json();
     if (res.ok && data.success) {
-      location.href = "gallery.html";
+      location.href = "home.html";
     } else {
       alert("Invalid email or password");
     }
