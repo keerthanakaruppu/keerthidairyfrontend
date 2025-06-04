@@ -7,5 +7,16 @@ let typing = new Typed(".text", {
     loop: true,
   });
 
-
+// check-auth
+fetch(`${API_URL}/check-auth`, {
+  credentials: "include"
+})
+.then(res => res.json())
+.then(data => {
+  if (!data.loggedIn) {
+    window.location.href = "index.html"; // redirect to login
+  } else {
+    loadImages(); // only if logged in
+  }
+});
 

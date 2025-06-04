@@ -17,6 +17,20 @@ window.onclick = (e) => {
   if (e.target === modal) modal.style.display = "none";
 };
 
+// check-auth
+fetch(`${API_URL}/check-auth`, {
+  credentials: "include"
+})
+.then(res => res.json())
+.then(data => {
+  if (!data.loggedIn) {
+    window.location.href = "index.html"; // redirect to login
+  } else {
+    loadImages(); // only if logged in
+  }
+});
+
+
 //upload image
 uploadBtn.onclick = async () => {
   const files = fileInput.files;
@@ -31,6 +45,7 @@ uploadBtn.onclick = async () => {
     const res = await fetch(`${API_URL}/upload`, {
       method: "POST",
       body: formData,
+      credentials: "include", 
     });
 
     const data = await res.json();
@@ -58,7 +73,10 @@ async function loadImages() {
   container.innerHTML = "";
 
   try {
-    const res = await fetch(`${API_URL}/images`);
+    const res = await fetch(`${API_URL}/images`, {
+      method: "GET",
+      credentials: "include", 
+    });
     const images = await res.json();
 
     // Hide loader
@@ -103,8 +121,11 @@ async function deleteImage(key, public_id) {
   try {
     const res = await fetch(`${API_URL}/delete`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ key, public_id }),
+      credentials: "include",
     });
 
     const data = await res.json();
