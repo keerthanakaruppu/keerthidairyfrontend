@@ -1,3 +1,5 @@
+const API_URL = "https://keerthidairybackend.onrender.com";
+
 // check-auth
 fetch(`${API_URL}/check-auth`, {
     credentials: "include"
@@ -10,7 +12,7 @@ fetch(`${API_URL}/check-auth`, {
       loadImages(); // only if logged in
     }
   });
-  
+
 
 function startBirthdayCountdown(birthMonth, birthDay, birthHour, birthMinute) {
   function updateCountdown() {

@@ -7,6 +7,7 @@ let typing = new Typed(".text", {
     loop: true,
   });
 
+const API_URL = "https://keerthidairybackend.onrender.com";
 // check-auth
 fetch(`${API_URL}/check-auth`, {
   credentials: "include"
@@ -18,5 +19,5 @@ fetch(`${API_URL}/check-auth`, {
   } else {
     loadImages(); // only if logged in
   }
-});
+}); 
 
