@@ -132,6 +132,76 @@ button{
   margin-right: 4px;
 }
 
+/* media query */
+
+/* Mobile Phones (up to 480px) */
+@media (max-width: 480px) {
+  .background,
+  form {
+    width: 90%;
+    height: auto;
+    padding: 30px 20px;
+  }
+
+  form h3 {
+    font-size: 24px;
+  }
+
+  input,
+  button {
+    height: 45px;
+    font-size: 14px;
+  }
+}
+
+/* Tablets (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .background,
+  form {
+    width: 80%;
+    height: auto;
+    padding: 40px 25px;
+  }
+
+  form h3 {
+    font-size: 28px;
+  }
+
+  input,
+  button {
+    height: 48px;
+    font-size: 15px;
+  }
+}
+
+/* Small Desktops (769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .background,
+  form {
+    width: 420px;
+    height: auto;
+    padding: 50px 35px;
+  }
+
+  form h3 {
+    font-size: 30px;
+  }
+}
+
+/* Large Desktops (1025px and up) */
+@media (min-width: 1025px) {
+  .background {
+    width: 430px;
+    height: 520px;
+  }
+
+  form {
+    width: 400px;
+    height: 520px;
+  }
+}
+
+
     </style>
 </head>
 <body>
@@ -142,10 +212,10 @@ button{
     <form id="loginForm">
         <h3>Login Here</h3>
 
-        <label for="username">Username</label>
+        <label>Username</label>
         <input type="email" id="email" placeholder="Email" required>
 
-        <label for="password">Password</label>
+        <label>Password</label>
         <input type="password" id="password" placeholder="Password" required>
 
         <button type="submit">Log In</button>
