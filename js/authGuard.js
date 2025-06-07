@@ -3,7 +3,7 @@
     try {
       const res = await fetch("https://keerthidairybackend.onrender.com/check-auth", {
         method: "GET",
-        credentials: "include", // include cookies
+        credentials: "include",
       });
   
       const data = await res.json();
@@ -15,4 +15,5 @@
       window.location.href = "index.html";
     }
   })();
+  
   

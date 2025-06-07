@@ -1,73 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Advance Wishes</title>
 
-    <!-- Icon Link -->
-    <link rel="icon" href="images/circle.png" />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advance Wishes</title>
 
-    <!-- Poppins Font Link -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Ionicon link -->
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
+  <!-- Icon -->
+  <link rel="icon" href="images/circle.png" />
 
-    <!-- Css Link -->
-    <link rel="stylesheet" href="css/timer.css" />
-  </head>
-  <body>
-    <section class="container">
-      <h2>Coming Soon</h2>
-      <p>Advance Happie BirthDay</p>
-      <div class="name-box">
-        <ion-icon name="heart" class="black-heart"></ion-icon>
-        <h3 style="font-family: poppins,sans-serif;">Keerthana</h3>
-        <ion-icon name="heart" class="black-heart"></ion-icon>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+
+  <!-- Ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/timer.css" />
+</head>
+
+<body>
+  <!-- Main Content -->
+  <section class="container">
+    <h2>Coming Soon</h2>
+    <p>Advance Happie BirthDay</p>
+
+    <div class="name-box">
+      <ion-icon name="heart" class="black-heart"></ion-icon>
+      <h3 style="font-family: 'Poppins', sans-serif;">Keerthana</h3>
+      <ion-icon name="heart" class="black-heart"></ion-icon>
+    </div>
+
+    <div class="counter">
+      <div class="box">
+        <h2 id="days">00</h2>
+        <small>Days</small>
       </div>
-      <div class="counter">
-        <div class="box">
-          <h2 id="days">00</h2>
-          <small>Days</small>
-        </div>
-
-        <div class="box">
-          <h2 id="hours">00</h2>
-          <small>Hours</small>
-        </div>
-
-        <div class="box">
-          <h2 id="minutes">00</h2>
-          <small>Minutes</small>
-        </div>
-
-        <div class="box">
-          <h2 id="seconds">00</h2>
-          <small>Seconds</small>
-        </div>
+      <div class="box">
+        <h2 id="hours">00</h2>
+        <small>Hours</small>
       </div>
-      <!-- <div class="form">
-    <input type="text" placeholder="Email Address">
-    <button>Notify Me</button>
-  </div> -->
-    </section>
-    <a href="home.html" class="back-link"
-      ><ion-icon name="arrow-back-outline"></ion-icon
-    ></a>
-    <script src="js/authGuard.js"></script>
-    <script src="js/timer.js"></script>
-  </body>
+      <div class="box">
+        <h2 id="minutes">00</h2>
+        <small>Minutes</small>
+      </div>
+      <div class="box">
+        <h2 id="seconds">00</h2>
+        <small>Seconds</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation Links -->
+  <div class="nav-links">
+    <a href="home.html" class="back-link" title="Back to Home">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </a>
+    <a id="logoutBtn" class="logout-link" title="Log Out" style="cursor: pointer;">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </a>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/authGuard.js"></script>
+  <script src="js/timer.js"></script>
+</body>
+
 </html>

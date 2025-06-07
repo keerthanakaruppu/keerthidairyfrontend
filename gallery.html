@@ -2,51 +2,45 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GALLERY</title>
-  <!-- Custom Css Link -->
+
+  <!-- ✅ Auth Guard -->
+  <script src="js/authGuard.js"></script>
+
+  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css" />
-
-  <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="icon" href="images/circle.png" />
 
-  <!-- Icon Link -->
-  <link rel="icon" href="images/circle.png">
-
-  <!-- Ionicon link -->
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-  <!-- Poppins Font Link -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Kablammo&display=swap" rel="stylesheet" />
 
-  <!-- Kablammo Font Link -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Kablammo&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
+  <!-- Ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body style="background-color: #84cdee">
-
-  <!-- Image Upload Popup -->
+  <!-- Upload Modal -->
   <div id="uploadModal" class="modal">
     <div class="modal-content">
       <span class="close-btn">&times;</span>
       <h3>Upload Image</h3>
-      <input type="file" id="fileInput" accept="images/*" multiple/>
+      <input type="file" id="fileInput" accept="image/*" multiple />
       <button id="uploadBtn">Upload</button>
     </div>
   </div>
 
+  <!-- Navbar -->
   <header>
-    <nav class="navbar navbar-defualt navigationbar">
+    <nav class="navbar navbar-default navigationbar">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -57,22 +51,21 @@
           <a class="navbar-brand" href="home.html">KEERTHI</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
-          </ul>
+          <ul class="nav navbar-nav"></ul>
           <ul class="nav navbar-nav navbar-right">
-            <!-- <li><a href="gallery.html" class="navlinks">Gallery</a></li> -->
             <li><a href="timer.html" class="navlinks">CountDown</a></li>
-            <li><a id="uploadImageButton" class="navlinks">Upload Image</a></li>
-            <li><a id="logoutBtn" class="navlinks">LogOut</a></li>cd backend
+            <li><a id="uploadImageButton" class="navlinks" style="cursor: pointer;">Upload Image</a></li>
+            <li><a id="logoutBtn" class="navlinks" style="cursor: pointer;">LogOut</a></li>
           </ul>
         </div>
       </div>
     </nav>
   </header>
 
-  <section class="container mainbox" id="mainbox">
-  </section>
+  <!-- Gallery Section -->
+  <section class="container mainbox" id="mainbox"></section>
 
+  <!-- Loader -->
   <div id="loader" class="loader" style="display: none;">
     <div class="bar1"></div>
     <div class="bar2"></div>
@@ -86,23 +79,16 @@
     <div class="bar10"></div>
     <div class="bar11"></div>
     <div class="bar12"></div>
-  </div>  
-  
-  <!-- External JS Link -->
-  <script src="js/authGuard.js"></script>
-  <script src="js/gallery.js" type="module"></script>
+  </div>
 
-  <!-- jQuery library -->
+  <!-- JS Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-  <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-  <!-- Firebase App -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-
-  <!-- Firebase Realtime Database -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+  <!-- App Scripts -->
+  <script src="js/gallery.js" type="module"></script>
 </body>
 
 </html>
