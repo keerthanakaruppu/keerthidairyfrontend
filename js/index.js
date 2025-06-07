@@ -1,5 +1,6 @@
 document.getElementById("loginForm").addEventListener("submit", async function (e) {
   e.preventDefault();
+
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
@@ -10,13 +11,14 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
-      credentials: "include",
+      credentials: "include", // Important: send & receive cookies cross-origin
     });
 
     const data = await res.json();
+
     if (res.ok && data.success) {
-      localStorage.setItem("authToken", data.token); // ✅ Store JWT
-      location.href = "home.html";
+      // No need to store token in localStorage
+      location.href = "home.html"; // Redirect after successful login
     } else {
       alert("Invalid email or password");
     }
@@ -24,3 +26,4 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     alert("Error logging in");
   }
 });
+
