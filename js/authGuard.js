@@ -1,34 +1,18 @@
 // authGuard.js
-(function checkAuth() {
-    const token = localStorage.getItem("authToken");
-  
-    if (!token) {
-      window.location.href = "index.html"; // Redirect to login
-      return;
-    }
-  
-    // Optional: verify token with server
-    fetch("https://keerthidairybackend.onrender.com/verify-token", {
-      method: "GET",
-      credentials: "include", // important!
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          localStorage.removeItem("authToken");
-          window.location.href = "index.html";
-        }
-      })
-      .catch(() => {
-        localStorage.removeItem("authToken");
-        window.location.href = "index.html";
+(async function checkAuth() {
+    try {
+      const res = await fetch("https://keerthidairybackend.onrender.com/check-auth", {
+        method: "GET",
+        credentials: "include", // include cookies
       });
-  })();
-
-
-
- 
   
+      const data = await res.json();
+      if (!data.loggedIn) {
+        window.location.href = "index.html";
+      }
+    } catch (err) {
+      console.error("Auth check failed:", err);
+      window.location.href = "index.html";
+    }
+  })();
   

@@ -11,7 +11,7 @@ const API_URL = "https://keerthidairybackend.onrender.com";
 
 //logout
 document.getElementById("logoutBtn").addEventListener("click", () => {
-  localStorage.removeItem("authToken");
+  document.cookie = "token=; Max-Age=0; path=/; secure; sameSite=None;";
   window.location.href = "index.html";
 });
 

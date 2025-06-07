@@ -10,10 +10,11 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
+      credentials: "include",
     });
 
     const data = await res.json();
-    if (res.ok && data.token) {
+    if (res.ok && data.success) {
       localStorage.setItem("authToken", data.token); // ✅ Store JWT
       location.href = "home.html";
     } else {

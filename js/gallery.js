@@ -1,10 +1,25 @@
 const API_URL = "https://keerthidairybackend.onrender.com";
-const token = localStorage.getItem("authToken");
 
-// 🔐 Redirect to login if not authenticated
-if (!token) {
-  window.location.href = "index.html";
+// 🔐 Check authentication
+async function checkAuth() {
+  try {
+    const res = await fetch(`${API_URL}/check-auth`, {
+      method: "GET",
+      credentials: "include",
+    });
+    const data = await res.json();
+
+    if (!data.loggedIn) {
+      window.location.href = "index.html";
+    }
+  } catch (err) {
+    console.error("Auth check failed:", err);
+    window.location.href = "index.html";
+  }
 }
+
+// Check auth when page loads
+checkAuth();
 
 // DOM Elements
 const uploadBtn = document.getElementById("uploadBtn");
@@ -15,34 +30,32 @@ const closeBtn = document.querySelector(".close-btn");
 const container = document.getElementById("mainbox");
 const loader = document.getElementById("loader");
 
-// Modal open/close logic
+// Modal open/close
 openBtn.onclick = () => (modal.style.display = "block");
 closeBtn.onclick = () => (modal.style.display = "none");
 window.onclick = (e) => {
   if (e.target === modal) modal.style.display = "none";
 };
 
-// Upload image
+// Upload image(s)
 uploadBtn.onclick = async () => {
   const files = fileInput.files;
   if (!files.length) return alert("Select at least one image!");
 
   const formData = new FormData();
   for (const file of files) {
-    formData.append("images", file); // Use "images" to match backend field name
+    formData.append("images", file); // match backend field
   }
 
   try {
     const res = await fetch(`${API_URL}/upload`, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      credentials: "include",
       body: formData,
     });
 
     const data = await res.json();
-    if (!res.ok) {
+    if (!res.ok || !data.success) {
       throw new Error(data.error || "Upload failed");
     }
 
@@ -53,10 +66,7 @@ uploadBtn.onclick = async () => {
   } catch (err) {
     console.error("Upload Error:", err);
     alert("Upload failed: " + err.message);
-    if (err.message.includes("token")) {
-      localStorage.removeItem("authToken");
-      window.location.href = "index.html";
-    }
+    window.location.href = "index.html";
   }
 };
 
@@ -67,17 +77,15 @@ async function loadImages() {
 
   try {
     const res = await fetch(`${API_URL}/images`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      method: "GET",
+      credentials: "include",
     });
 
     const images = await res.json();
-
     loader.style.display = "none";
 
     if (!Array.isArray(images)) {
-      throw new Error("Unauthorized or unexpected response");
+      throw new Error("Unexpected response or unauthorized");
     }
 
     images.forEach((img) => {
@@ -97,10 +105,9 @@ async function loadImages() {
       container.appendChild(div);
     });
   } catch (err) {
-    loader.style.display = "none";
     console.error("Error loading images:", err);
+    loader.style.display = "none";
     container.innerHTML = "<p>Failed to load images.</p>";
-    localStorage.removeItem("authToken");
     window.location.href = "index.html";
   }
 }
@@ -124,8 +131,8 @@ async function deleteImage(key, public_id) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
+      credentials: "include",
       body: JSON.stringify({ key, public_id }),
     });
 
@@ -139,15 +146,12 @@ async function deleteImage(key, public_id) {
   } catch (err) {
     console.error("Error deleting image:", err);
     alert("Something went wrong.");
-    localStorage.removeItem("authToken");
     window.location.href = "index.html";
   }
 }
 
-
-//logout
+// Logout
 document.getElementById("logoutBtn").addEventListener("click", () => {
-  localStorage.removeItem("authToken");
+  document.cookie = "token=; Max-Age=0; path=/; secure; sameSite=None;";
   window.location.href = "index.html";
 });
-
