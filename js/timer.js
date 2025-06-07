@@ -1,19 +1,5 @@
 const API_URL = "https://keerthidairybackend.onrender.com";
 
-// check-auth
-// fetch(`${API_URL}/check-auth`, {
-//     credentials: "include"
-//   })
-//   .then(res => res.json())
-//   .then(data => {
-//     if (!data.loggedIn) {
-//       window.location.href = "index.html"; // redirect to login
-//     } else {
-//       loadImages(); // only if logged in
-//     }
-//   });
-
-
 function startBirthdayCountdown(birthMonth, birthDay, birthHour, birthMinute) {
   function updateCountdown() {
       const now = new Date();
@@ -51,6 +37,11 @@ function startBirthdayCountdown(birthMonth, birthDay, birthHour, birthMinute) {
 startBirthdayCountdown(6, 28, 7, 0); // Example: January 08 at 10:30 AM
 
 
+//logout
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("authToken");
+    window.location.href = "index.html";
+  });
 
 
 
