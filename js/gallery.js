@@ -1,27 +1,5 @@
 const API_URL = "https://keerthidairybackend.onrender.com";
 
-
-// 🔐 Check authentication
-(async () => {
-  try {
-    const response = await fetch('https://keerthidairybackend.onrender.com/check-auth', {
-      method: 'GET',
-      credentials: 'include', // Must include cookies
-    });
-
-    const data = await response.json();
-
-    if (!response.ok || !data.success) {
-      throw new Error('Unauthorized');
-    }
-
-    // Authorized, do nothing
-  } catch (err) {
-    // Redirect if not authenticated
-    window.location.href = 'index.html';
-  }
-})();
-
 // DOM Elements
 const uploadBtn = document.getElementById("uploadBtn");
 const fileInput = document.getElementById("fileInput");

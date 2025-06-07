@@ -37,30 +37,6 @@ function startBirthdayCountdown(birthMonth, birthDay, birthHour, birthMinute) {
 startBirthdayCountdown(6, 28, 7, 0); // Example: January 08 at 10:30 AM
 
 
-// 🔐 Check authentication
-
-// 🔐 Check authentication
-(async () => {
-    try {
-      const response = await fetch('https://keerthidairybackend.onrender.com/check-auth', {
-        method: 'GET',
-        credentials: 'include', // Must include cookies
-      });
-  
-      const data = await response.json();
-  
-      if (!response.ok || !data.success) {
-        throw new Error('Unauthorized');
-      }
-  
-      // Authorized, do nothing
-    } catch (err) {
-      // Redirect if not authenticated
-      window.location.href = 'index.html';
-    }
-  })();
-
-
 //logout
 document.getElementById("logoutBtn").addEventListener("click", () => {
     document.cookie = "token=; Max-Age=0; path=/; secure; sameSite=None;";
