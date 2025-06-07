@@ -1,5 +1,6 @@
-document.getElementById("loginForm").addEventListener("submit", async function (e) {
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
+
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
@@ -15,11 +16,12 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     if (res.ok && data.success) {
       window.location.href = "home.html";
     } else {
-      alert("Invalid credentials");
+      alert("Invalid email or password");
     }
-  } catch (err) {
-    alert("Login error");
+  } catch {
+    alert("Login failed");
   }
 });
+
 
 
