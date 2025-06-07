@@ -1,18 +1,23 @@
-// authGuard.js
-(async function checkAuth() {
+
+  // js/authGuard.js
+(async () => {
     try {
-      const res = await fetch("https://keerthidairybackend.onrender.com/check-auth", {
-        method: "GET",
-        credentials: "include",
+      const response = await fetch('https://keerthidairybackend.onrender.com/check-auth', {
+        method: 'GET',
+        credentials: 'include', // important: sends cookie
       });
   
-      const data = await res.json();
-      if (!data.loggedIn) {
-        window.location.href = "index.html";
+      if (!response.ok) {
+        throw new Error('Unauthorized');
+      }
+  
+      const data = await response.json();
+      if (!data.success) {
+        throw new Error('Invalid session');
       }
     } catch (err) {
-      console.error("Auth check failed:", err);
-      window.location.href = "index.html";
+      // Redirect if not authenticated
+      window.location.href = 'index.html';
     }
   })();
   
