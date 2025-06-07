@@ -38,27 +38,29 @@ startBirthdayCountdown(6, 28, 7, 0); // Example: January 08 at 10:30 AM
 
 
 // 🔐 Check authentication
-async function checkAuth() {
-    try {
-      const res = await fetch(`${API_URL}/check-auth`, {
-        method: "GET",
-        credentials: "include",
-      });
-      const data = await res.json();
-  
-      if (!data.loggedIn) {
-        window.location.href = "index.html";
-      }
-    } catch (err) {
-      console.error("Auth check failed:", err);
-      window.location.href = "index.html";
-    }
-  }
-  
-  // Check auth when page loads
-  checkAuth();
 
+// 🔐 Check authentication
+(async () => {
+    try {
+      const response = await fetch('https://keerthidairybackend.onrender.com/check-auth', {
+        method: 'GET',
+        credentials: 'include', // Must include cookies
+      });
   
+      const data = await response.json();
+  
+      if (!response.ok || !data.success) {
+        throw new Error('Unauthorized');
+      }
+  
+      // Authorized, do nothing
+    } catch (err) {
+      // Redirect if not authenticated
+      window.location.href = 'index.html';
+    }
+  })();
+
+
 //logout
 document.getElementById("logoutBtn").addEventListener("click", () => {
     document.cookie = "token=; Max-Age=0; path=/; secure; sameSite=None;";

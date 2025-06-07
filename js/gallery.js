@@ -1,25 +1,26 @@
 const API_URL = "https://keerthidairybackend.onrender.com";
 
+
 // 🔐 Check authentication
-async function checkAuth() {
+(async () => {
   try {
-    const res = await fetch(`${API_URL}/check-auth`, {
-      method: "GET",
-      credentials: "include",
+    const response = await fetch('https://keerthidairybackend.onrender.com/check-auth', {
+      method: 'GET',
+      credentials: 'include', // Must include cookies
     });
-    const data = await res.json();
 
-    if (!data.loggedIn) {
-      window.location.href = "index.html";
+    const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error('Unauthorized');
     }
-  } catch (err) {
-    console.error("Auth check failed:", err);
-    window.location.href = "index.html";
-  }
-}
 
-// Check auth when page loads
-checkAuth();
+    // Authorized, do nothing
+  } catch (err) {
+    // Redirect if not authenticated
+    window.location.href = 'index.html';
+  }
+})();
 
 // DOM Elements
 const uploadBtn = document.getElementById("uploadBtn");
