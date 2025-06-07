@@ -9,15 +9,15 @@ let typing = new Typed(".text", {
 
 const API_URL = "https://keerthidairybackend.onrender.com";
 // check-auth
-fetch(`${API_URL}/check-auth`, {
-  credentials: "include"
-})
-.then(res => res.json())
-.then(data => {
-  if (!data.loggedIn) {
-    window.location.href = "index.html"; // redirect to login
-  } else {
-    loadImages(); // only if logged in
-  }
-}); 
+// fetch(`${API_URL}/check-auth`, {
+//   credentials: "include"
+// })
+// .then(res => res.json())
+// .then(data => {
+//   if (!data.loggedIn) {
+//     window.location.href = "index.html"; // redirect to login
+//   } else {
+//     loadImages(); // only if logged in
+//   }
+// }); 
 

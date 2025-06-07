@@ -1,4 +1,10 @@
 const API_URL = "https://keerthidairybackend.onrender.com";
+const token = localStorage.getItem("authToken");
+
+// 🔐 Redirect to login if not authenticated
+if (!token) {
+  window.location.href = "index.html";
+}
 
 // DOM Elements
 const uploadBtn = document.getElementById("uploadBtn");
@@ -9,7 +15,6 @@ const closeBtn = document.querySelector(".close-btn");
 const container = document.getElementById("mainbox");
 const loader = document.getElementById("loader");
 
-
 // Modal open/close logic
 openBtn.onclick = () => (modal.style.display = "block");
 closeBtn.onclick = () => (modal.style.display = "none");
@@ -17,21 +22,7 @@ window.onclick = (e) => {
   if (e.target === modal) modal.style.display = "none";
 };
 
-// check-auth
-fetch(`${API_URL}/check-auth`, {
-  credentials: "include"
-})
-.then(res => res.json())
-.then(data => {
-  if (!data.loggedIn) {
-    window.location.href = "index.html"; // redirect to login
-  } else {
-    loadImages(); // only if logged in
-  }
-});
-
-
-//upload image
+// Upload image
 uploadBtn.onclick = async () => {
   const files = fileInput.files;
   if (!files.length) return alert("Select at least one image!");
@@ -44,8 +35,10 @@ uploadBtn.onclick = async () => {
   try {
     const res = await fetch(`${API_URL}/upload`, {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: formData,
-      credentials: "include", 
     });
 
     const data = await res.json();
@@ -60,29 +53,33 @@ uploadBtn.onclick = async () => {
   } catch (err) {
     console.error("Upload Error:", err);
     alert("Upload failed: " + err.message);
+    if (err.message.includes("token")) {
+      localStorage.removeItem("authToken");
+      window.location.href = "index.html";
+    }
   }
 };
 
-
-
-
 // Load and display images
 async function loadImages() {
-  // Show loader and clear content
   loader.style.display = "block";
   container.innerHTML = "";
 
   try {
     const res = await fetch(`${API_URL}/images`, {
-      method: "GET",
-      credentials: "include", 
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
+
     const images = await res.json();
 
-    // Hide loader
     loader.style.display = "none";
 
-    // Populate images
+    if (!Array.isArray(images)) {
+      throw new Error("Unauthorized or unexpected response");
+    }
+
     images.forEach((img) => {
       const div = document.createElement("div");
       div.classList.add("card");
@@ -103,10 +100,13 @@ async function loadImages() {
     loader.style.display = "none";
     console.error("Error loading images:", err);
     container.innerHTML = "<p>Failed to load images.</p>";
+    localStorage.removeItem("authToken");
+    window.location.href = "index.html";
   }
 }
 loadImages();
 
+// Handle delete click
 container.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete-icon")) {
     const key = e.target.getAttribute("data-key");
@@ -115,17 +115,18 @@ container.addEventListener("click", (e) => {
   }
 });
 
-// Delete image handler
+// Delete image
 async function deleteImage(key, public_id) {
   if (!confirm("Are you sure you want to delete this image?")) return;
+
   try {
     const res = await fetch(`${API_URL}/delete`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ key, public_id }),
-      credentials: "include",
     });
 
     const data = await res.json();
@@ -138,6 +139,7 @@ async function deleteImage(key, public_id) {
   } catch (err) {
     console.error("Error deleting image:", err);
     alert("Something went wrong.");
+    localStorage.removeItem("authToken");
+    window.location.href = "index.html";
   }
 }
-
