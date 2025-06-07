@@ -144,8 +144,10 @@ async function deleteImage(key, public_id) {
   }
 }
 
+
 //logout
 document.getElementById("logoutBtn").addEventListener("click", () => {
   localStorage.removeItem("authToken");
   window.location.href = "index.html";
 });
+

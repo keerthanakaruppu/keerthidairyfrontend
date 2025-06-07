@@ -10,6 +10,7 @@
     // Optional: verify token with server
     fetch("https://keerthidairybackend.onrender.com/verify-token", {
       method: "GET",
+      credentials: "include", // important!
       headers: {
         Authorization: `Bearer ${token}`,
       },
